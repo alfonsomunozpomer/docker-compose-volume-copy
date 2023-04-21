@@ -1,0 +1,26 @@
+version: "3.6"
+
+services:
+  foo:
+    image: ubuntu:latest
+    networks:
+      - atlas-test-net
+    volumes:
+      - src-volume:/src-volume
+      - ${DST_VOL_NAME}:/dst-volume
+    command:
+      - sh
+      - -c
+      - >
+        cp -R /src-volume/* /dst-volume/
+
+volumes:             
+  src-volume:
+    name: ${SRC_VOL_NAME}
+  ${DST_VOL_NAME}:
+    name: ${DST_VOL_NAME}
+
+networks:
+  atlas-test-net:
+    name: atlas-test-net
+
